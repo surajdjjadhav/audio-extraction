@@ -1,43 +1,49 @@
 import json
 import os
-from transformers import pipeline
 
-# Load Summarization Model
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+def save_transcript_and_summary(video_title, transcript,summary, output_folder="downloads/json_files/"):
+    """
+    Saves video transcript and summary to a JSON file.
+    Each video will be saved in a separate file named after the video title.
+    """
+    try:
+        # Ensure the folder exists
+        os.makedirs(output_folder, exist_ok=True)
 
-def summarize_text(full_text):
-    summary = summarizer(full_text, max_length=100, min_length=50, do_sample=False)
-    return summary[0]['summary_text']
+        # Sanitize video title to create a valid filename
+        safe_title = "".join(c if c.isalnum() or c in " _-" else "_" for c in video_title)
+        output_file = os.path.join(output_folder, f"{safe_title}.json")
 
-def save_transcription(video_title, transcript, json_file="downloads/movie.json"):
-    os.makedirs("downloads", exist_ok=True)  # Ensure downloads folder exists
+        # Prepare the data to be saved
+        data = {
+            "title": video_title,
+            "summary": summary,
+            "transcript": transcript
+        }
 
-    # Generate summary
-    summary = summarize_text(transcript)
+        # Check if the file already exists, load it and append the new data
+        if os.path.exists(output_file):
+            with open(output_file, "r", encoding="utf-8") as file:
+                existing_data = json.load(file)
+        else:
+            existing_data = []
 
-    # Load existing data
-    if os.path.exists(json_file):
-        with open(json_file, "r", encoding="utf-8") as file:
-            try:
-                data = json.load(file)
-            except json.JSONDecodeError:
-                data = []
-    else:
-        data = []
+        # Append new data
+        existing_data.append(data)
 
-    # Append new entry
-    data.append({"title": video_title, "description": summary, "script": transcript})
+        # Save the updated data back to the file
+        with open(output_file, "w", encoding="utf-8") as file:
+            json.dump(existing_data, file, indent=4, ensure_ascii=False)
 
-    # Save to JSON file
-    with open(json_file, "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
+        print(f"✅ Transcript and summary saved to: {output_file}")
+        return output_file
 
-    return summary
+    except Exception as e:
+        print(f"❌ Error saving transcript and summary: {e}")
+        return None
 
-if __name__ == "__main__":
-    sample_title = "Example Video"
-    sample_transcript = "This is a sample transcript of the video."
 
-    summary = save_transcription(sample_title, sample_transcript)
-    print("\nSummary (3-Line Description):\n", summary)
-    print("Saved transcript to JSON!")
+# # Example usage
+# if __name__ == "__main__":
+#     output_file = save_transcript_and_summary()
+

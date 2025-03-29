@@ -1,0 +1,9 @@
+[2025-03-29 17:49:34,141] werkzeug - WARNING -  * Debugger is active!
+[2025-03-29 17:49:34,151] werkzeug - INFO -  * Debugger PIN: 119-195-508
+[2025-03-29 17:49:48,473] werkzeug - INFO - 127.0.0.1 - - [29/Mar/2025 17:49:48] "GET / HTTP/1.1" 200 -
+[2025-03-29 17:49:48,663] werkzeug - INFO - 127.0.0.1 - - [29/Mar/2025 17:49:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-03-29 17:50:07,378] root - INFO - YouTube audio downloaded successfully: downloads\Chalawe Ki Raat
+[2025-03-29 17:56:16,928] werkzeug - INFO - 127.0.0.1 - - [29/Mar/2025 17:56:16] "POST / HTTP/1.1" 200 -
+[2025-03-29 17:56:16,949] werkzeug - INFO - 127.0.0.1 - - [29/Mar/2025 17:56:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-03-29 17:57:21,344] werkzeug - INFO -  * Detected change in 'c:\\users\\suraj\\onedrive\\desktop\\ml_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-29 17:57:21,344] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading

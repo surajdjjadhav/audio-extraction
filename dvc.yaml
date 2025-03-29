@@ -1,0 +1,12 @@
+stages:
+  process_video:
+    cmd: python app.py
+    deps:
+      - scripts/download_audio.py
+      - scripts/transcribe.py
+      - scripts/save_json.py
+      - app.py
+    outs:
+      - downloads/raw_audio/
+      - transcribed_text/
+      - downloads/json_files/

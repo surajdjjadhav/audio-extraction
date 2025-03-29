@@ -1,7 +1,9 @@
-Metadata-Version: 2.2
+Metadata-Version: 2.4
 Name: src
 Version: 0.0.1
+Summary: An MLOps project for productionizing models
 Author: surajjadhav
-Author-email: sj4456046@gmail.com
+Author-email: surajjadhav <sj4456046@gmail.com>
+License-File: LICENSE
 Dynamic: author
-Dynamic: author-email
+Dynamic: license-file

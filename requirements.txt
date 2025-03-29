@@ -3,4 +3,5 @@ openai-whisper
 torch 
 moviepy 
 streamlit
+transformers
 -e .

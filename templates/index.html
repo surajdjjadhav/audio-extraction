@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Transcription</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>YouTube Video Transcription</h2>
+        <form method="POST">
+            <label for="video_title">Video Title:</label>
+            <input type="text" id="video_title" name="video_title" required>
+
+            <label for="video_url">YouTube URL:</label>
+            <input type="url" id="video_url" name="video_url" required>
+
+            <button type="submit">Process Video</button>
+        </form>
+
+        {% if message %}
+        <div class="result">
+            <h3>Processing Complete ✅</h3>
+            <p><strong>Title:</strong> {{ video_title }}</p>
+            <h4>Transcription:</h4>
+            <p>{{ transcription }}</p>
+            <h4>Summary:</h4>
+            <p>{{ summary }}</p>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">
+            <h3>Error ❌</h3>
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

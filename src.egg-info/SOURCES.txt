@@ -1,5 +1,10 @@
+LICENSE
 README.md
+pyproject.toml
 setup.py
+scripts/download_audio.py
+scripts/save_json.py
+scripts/transcribe.py
 src.egg-info/PKG-INFO
 src.egg-info/SOURCES.txt
 src.egg-info/dependency_links.txt
