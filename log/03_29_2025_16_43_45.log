@@ -1,9 +1,0 @@
-[2025-03-29 16:43:52,747] werkzeug - WARNING -  * Debugger is active!
-[2025-03-29 16:43:52,756] werkzeug - INFO -  * Debugger PIN: 119-195-508
-[2025-03-29 16:44:07,796] root - INFO - YouTube audio downloaded successfully: downloads\Chalawe Ki Raat
-[2025-03-29 16:45:15,339] root - INFO - Audio transcription done successfully
-[2025-03-29 16:45:15,643] filelock - DEBUG - Attempting to acquire lock 1882437049408 on C:\Users\suraj\.cache\huggingface\hub\.locks\models--csebuetnlp--mT5_multilingual_XLSum\f4a69678a87f763455c0df63d253e44c378d1de6.lock
-[2025-03-29 16:45:15,646] filelock - DEBUG - Lock 1882437049408 acquired on C:\Users\suraj\.cache\huggingface\hub\.locks\models--csebuetnlp--mT5_multilingual_XLSum\f4a69678a87f763455c0df63d253e44c378d1de6.lock
-[2025-03-29 16:45:15,878] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\huggingface_hub\\file_download.py', reloading
-[2025-03-29 16:45:15,883] filelock - DEBUG - Attempting to release lock 1882437049408 on C:\Users\suraj\.cache\huggingface\hub\.locks\models--csebuetnlp--mT5_multilingual_XLSum\f4a69678a87f763455c0df63d253e44c378d1de6.lock
-[2025-03-29 16:45:15,884] filelock - DEBUG - Lock 1882437049408 released on C:\Users\suraj\.cache\huggingface\hub\.locks\models--csebuetnlp--mT5_multilingual_XLSum\f4a69678a87f763455c0df63d253e44c378d1de6.lock

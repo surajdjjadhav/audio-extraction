@@ -1,3 +1,0 @@
-[2025-03-29 06:39:26,194] urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
-[2025-03-29 06:39:26,735] urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /facebook/bart-large-cnn/resolve/main/config.json HTTP/1.1" 200 0
-[2025-03-29 06:39:28,201] urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /facebook/bart-large-cnn/resolve/main/generation_config.json HTTP/1.1" 200 0

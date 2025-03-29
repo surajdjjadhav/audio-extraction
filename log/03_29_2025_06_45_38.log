@@ -1,5 +1,0 @@
-[2025-03-29 06:45:45,142] urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
-[2025-03-29 06:45:46,026] urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /facebook/bart-large-cnn/resolve/main/config.json HTTP/1.1" 200 0
-[2025-03-29 06:45:47,531] urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /facebook/bart-large-cnn/resolve/main/generation_config.json HTTP/1.1" 200 0
-[2025-03-29 06:46:33,299] root - ERROR - Error downloading audio: [0;31mERROR:[0m Postprocessing: ffprobe and ffmpeg not found. Please install or provide the path using --ffmpeg-location
-[2025-03-29 06:46:33,300] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\download_audio.py]at number:[25]:str [[0;31mERROR:[0m Postprocessing: ffprobe and ffmpeg not found. Please install or provide the path using --ffmpeg-location]
