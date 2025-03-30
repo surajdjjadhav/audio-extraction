@@ -1,5 +1,6 @@
 yt-dlp
 openai-whisper
+flask
 torch
 moviepy
 streamlit
