@@ -1,0 +1,32 @@
+[2025-03-30 06:48:02,734] pydot - DEBUG - pydot initializing
+[2025-03-30 06:48:02,734] pydot - DEBUG - pydot 3.0.4
+[2025-03-30 06:48:02,760] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
+[2025-03-30 06:48:02,762] pydot.core - DEBUG - pydot core module initializing
+[2025-03-30 06:48:08,034] werkzeug - WARNING -  * Debugger is active!
+[2025-03-30 06:48:08,044] werkzeug - INFO -  * Debugger PIN: 134-049-397
+[2025-03-30 06:48:27,919] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 06:48:27] "GET / HTTP/1.1" 200 -
+[2025-03-30 06:48:28,107] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 06:48:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-03-30 06:48:45,516] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 06:48:45,860] root - INFO - FFmpeg is installed and available.
+[2025-03-30 06:48:45,862] root - INFO - Loading Whisper model...
+[2025-03-30 06:48:54,610] root - INFO - Whisper model loaded successfully.
+[2025-03-30 06:48:54,610] root - INFO - Loading summarization model...
+[2025-03-30 06:48:56,943] root - INFO - Summarization model loaded successfully.
+[2025-03-30 06:48:56,944] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 06:48:56,945] root - INFO - Directory ensured: downloads/transcribed_text
+[2025-03-30 06:48:56,945] root - ERROR - Audio file not found: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 06:48:56,946] root - ERROR - Error in transcribing audio: Audio file not found: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 06:48:56,947] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[50]:str [Audio file not found: downloads/raw_audio\Chalawe Ki Raat]
+[2025-03-30 06:48:56,947] root - ERROR - Error in processing audio: error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[50]:str [Audio file not found: downloads/raw_audio\Chalawe Ki Raat]
+[2025-03-30 06:48:56,948] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[100]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[50]:str [Audio file not found: downloads/raw_audio\Chalawe Ki Raat]]
+[2025-03-30 06:48:56,957] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 06:48:56] "POST / HTTP/1.1" 200 -
+[2025-03-30 06:48:56,970] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 06:48:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-03-30 06:51:57,712] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,713] werkzeug - INFO -  * Detected change in 'c:\\users\\suraj\\onedrive\\desktop\\ml_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,713] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,714] werkzeug - INFO -  * Detected change in 'c:\\users\\suraj\\onedrive\\desktop\\ml_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,953] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,954] werkzeug - INFO -  * Detected change in 'c:\\users\\suraj\\onedrive\\desktop\\ml_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,954] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,955] werkzeug - INFO -  * Detected change in 'c:\\users\\suraj\\onedrive\\desktop\\ml_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
+[2025-03-30 06:51:57,956] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading

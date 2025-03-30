@@ -1,0 +1,6 @@
+[2025-03-30 06:46:58,921] pydot - DEBUG - pydot initializing
+[2025-03-30 06:46:58,921] pydot - DEBUG - pydot 3.0.4
+[2025-03-30 06:46:58,945] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
+[2025-03-30 06:46:58,947] pydot.core - DEBUG - pydot core module initializing
+[2025-03-30 06:47:04,042] werkzeug - WARNING -  * Debugger is active!
+[2025-03-30 06:47:04,051] werkzeug - INFO -  * Debugger PIN: 134-049-397

@@ -68,7 +68,7 @@ def index():
             
             transcriber = HindiTranscriber(model_size="medium")  # Initialize with "medium" or "large"
             
-            final_transcription, summary = transcriber.process_audio(audio_path)
+            final_transcription, summary = transcriber.process_audio(audio_path ,output_dir = "downloads/transcribed_text")
             save_transcript_and_summary(video_title, final_transcription , summary)
 
             return render_template(
