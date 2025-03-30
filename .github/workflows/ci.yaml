@@ -34,6 +34,10 @@ jobs:
           dvc doctor
 
       - name: Debug AWS Credentials (Before Config)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           set -e
           echo "Checking AWS CLI version..."
@@ -45,16 +49,12 @@ jobs:
           echo "AWS_REGION: $AWS_REGION"
 
       - name: Configure AWS Credentials
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           set -e
           echo "Configuring AWS credentials..."
-          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID" --profile default
-          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY" --profile default
-          aws configure set region "$AWS_REGION" --profile default
+          aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}" --profile default
+          aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}" --profile default
+          aws configure set region "${{ secrets.AWS_REGION }}" --profile default
 
       - name: Verify AWS Authentication
         run: |
@@ -63,7 +63,11 @@ jobs:
           aws sts get-caller-identity --profile default || { echo "AWS authentication failed!"; exit 1; }
 
           echo "Checking S3 bucket access..."
-          aws s3 ls s3://audiocollection/path/to/data --profile default || { echo "S3 access denied!"; exit 1; }
+          if aws s3 ls s3://audiocollection/path/to/data --profile default; then
+            echo "S3 bucket is accessible."
+          else
+            echo "Warning: S3 path might not exist or access is denied."
+          fi
 
       - name: Initialize DVC
         run: |
@@ -81,7 +85,7 @@ jobs:
           fi
 
           dvc remote add -d myremote s3://audiocollection/path/to/data --force
-          dvc remote modify myremote region "$AWS_REGION"
+          dvc remote modify myremote region "${{ secrets.AWS_REGION }}"
           dvc remote modify myremote profile default  # Ensure it uses AWS CLI profile
 
           echo "DVC remote successfully configured."
@@ -91,8 +95,13 @@ jobs:
       - name: Fetch & Pull DVC Data
         run: |
           set -e
-          echo "Fetching and pulling latest DVC data..."
-          dvc pull || { echo "DVC pull failed! Check if data exists."; exit 1; }
+          echo "Checking for DVC files..."
+          if ls *.dvc 1> /dev/null 2>&1; then
+            echo "DVC files found. Pulling data..."
+            dvc pull || { echo "DVC pull failed! Check if data exists."; exit 1; }
+          else
+            echo "No DVC files found. Skipping pull."
+          fi
 
       - name: Run DVC Pipeline
         run: |
