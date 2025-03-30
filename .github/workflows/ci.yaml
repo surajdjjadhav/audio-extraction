@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          set -e  # Exit immediately if any command fails
+          set -e
           echo "Upgrading pip and installing dependencies..."
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
@@ -30,53 +30,53 @@ jobs:
           set -e
           echo "Installing DVC with S3 support..."
           python -m pip install "dvc[s3]"
-          dvc version  # Verify installation
-          dvc doctor   # Check DVC health
+          dvc version
+          dvc doctor
 
       - name: Configure AWS Credentials
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           set -e
           echo "Configuring AWS credentials..."
           aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
           aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
-          aws configure set default.region us-east-1
-          
+          aws configure set default.region "$AWS_REGION"
+
           echo "Verifying AWS connection..."
           aws s3 ls s3://audiocollection/path/to/data || { echo "AWS authentication failed!"; exit 1; }
+
+      - name: Initialize DVC
+        run: |
+          set -e
+          echo "Initializing DVC..."
+          dvc init --quiet || true  # Prevent error if already initialized
 
       - name: Configure DVC Remote (AWS S3)
         run: |
           set -e
-          echo "Checking existing DVC remotes..."
-          dvc remote list || true  # Prevent failure if no remote exists
-
+          echo "Configuring DVC remote..."
           if dvc remote list | grep -q 'myremote'; then
             echo "Removing existing 'myremote'..."
             dvc remote remove myremote
           fi
 
-          echo "Adding new DVC remote..."
           dvc remote add -d myremote s3://audiocollection/path/to/data --force
-          dvc remote modify myremote region us-east-1
+          dvc remote modify myremote region "$AWS_REGION"
           dvc remote modify myremote access_key_id "$AWS_ACCESS_KEY_ID"
           dvc remote modify myremote secret_access_key "$AWS_SECRET_ACCESS_KEY"
 
           echo "DVC remote successfully configured."
-          dvc remote list  # Verify remote setup
+          dvc remote list
           dvc remote default myremote
 
       - name: Fetch & Pull DVC Data
         run: |
           set -e
-          echo "Checking DVC status..."
-          dvc status || true  # Allow non-zero exit codes
-
-          echo "Fetching and pulling latest data..."
-          dvc fetch
-          dvc pull
+          echo "Fetching and pulling latest DVC data..."
+          dvc pull || { echo "DVC pull failed! Check if data exists."; exit 1; }
 
       - name: Run DVC Pipeline
         run: |
