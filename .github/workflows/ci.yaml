@@ -21,13 +21,15 @@ jobs:
       - name: Install Dependencies
         run: |
           set -e  # Exit immediately if any command fails
+          echo "Upgrading pip and installing dependencies..."
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Setup DVC
+      - name: Setup DVC with S3 Support
         run: |
           set -e
-          python -m pip install dvc[dvc-s3]  # Install DVC with S3 support
+          echo "Installing DVC with S3 support..."
+          python -m pip install "dvc[s3]"
           dvc version  # Verify installation
           dvc doctor   # Check DVC health
 
@@ -37,26 +39,42 @@ jobs:
           echo "Configuring AWS credentials..."
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region us-east-1  # Set your preferred AWS region
-          aws s3 ls  # Verify AWS authentication
+          aws configure set default.region us-east-1
+          
+          echo "Verifying AWS connection..."
+          aws s3 ls || { echo "AWS authentication failed!"; exit 1; }
 
       - name: Configure DVC Remote (AWS S3)
         run: |
           set -e
-          dvc remote list  # Debug: Check existing remotes
+          echo "Checking existing DVC remotes..."
+          dvc remote list || true  # Prevent failure if no remote exists
+
+          # Check if 'myremote' exists
           if dvc remote list | grep -q 'myremote'; then
+            echo "Removing existing 'myremote'..."
             dvc remote remove myremote
           fi
-          dvc remote add -d myremote s3://audiocollection/path/to/data --force
-          dvc remote modify myremote access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          dvc remote modify myremote secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          dvc remote modify myremote region us-east-1  # Set your region
-          dvc remote list  # Verify remote is added
-          dvc status  # Check status
-          dvc fetch   # Fetch missing files
-          dvc pull    # Pull latest data
 
-      - name: Run Pipeline
+          echo "Adding new DVC remote..."
+          dvc remote add -d myremote s3://audiocollection/path/to/data --force
+          dvc remote modify myremote region us-east-1
+
+          echo "DVC remote successfully configured."
+          dvc remote list  # Verify remote setup
+
+      - name: Fetch & Pull DVC Data
         run: |
           set -e
+          echo "Checking DVC status..."
+          dvc status || true  # Allow non-zero exit codes
+
+          echo "Fetching and pulling latest data..."
+          dvc fetch
+          dvc pull
+
+      - name: Run DVC Pipeline
+        run: |
+          set -e
+          echo "Running DVC pipeline..."
           dvc repro
