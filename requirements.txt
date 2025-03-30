@@ -1,7 +1,8 @@
-yt-dlp 
-openai-whisper 
-torch 
-moviepy 
+yt-dlp
+openai-whisper
+torch
+moviepy
 streamlit
 transformers
+awscli
 -e .
