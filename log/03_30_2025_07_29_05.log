@@ -15,3 +15,29 @@
 [2025-03-30 07:30:01,679] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat
 [2025-03-30 07:30:01,682] root - INFO - Directory ensured: downloads/transcribed_text
 [2025-03-30 07:30:01,683] root - INFO - Transcribing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-03-30 07:36:19,895] root - INFO - Transcription completed successfully.
+[2025-03-30 07:36:19,896] root - INFO - Normalizing Hindi text...
+[2025-03-30 07:36:19,898] root - INFO - Text normalization completed successfully.
+[2025-03-30 07:36:19,899] root - INFO - Generating summary...
+[2025-03-30 07:36:20,001] root - ERROR - Error in generating summary: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[2025-03-30 07:36:20,002] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[86]:str [CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+]
+[2025-03-30 07:36:20,003] root - ERROR - Error in processing audio: error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[86]:str [CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+]
+[2025-03-30 07:36:20,003] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[103]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[86]:str [CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+]]
+[2025-03-30 07:36:20,012] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:36:20] "POST / HTTP/1.1" 200 -
+[2025-03-30 07:36:20,035] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:36:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
