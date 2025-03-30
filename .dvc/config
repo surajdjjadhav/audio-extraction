@@ -1,4 +1,7 @@
 [core]
     remote = myremote
 ['remote "myremote"']
-    url = C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\s3
+    url = s3://audiocollection/path/to/storage
+    access_key_id = YOUR_ACCESS_KEY
+    secret_access_key = YOUR_SECRET_KEY
+    region = YOUR_AWS_REGION

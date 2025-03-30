@@ -34,15 +34,18 @@ jobs:
           dvc doctor   # Check DVC health
 
       - name: Configure AWS Credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           set -e
           echo "Configuring AWS credentials..."
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
           aws configure set default.region us-east-1
           
           echo "Verifying AWS connection..."
-          aws s3 ls || { echo "AWS authentication failed!"; exit 1; }
+          aws s3 ls s3://audiocollection/path/to/data || { echo "AWS authentication failed!"; exit 1; }
 
       - name: Configure DVC Remote (AWS S3)
         run: |
@@ -50,7 +53,6 @@ jobs:
           echo "Checking existing DVC remotes..."
           dvc remote list || true  # Prevent failure if no remote exists
 
-          # Check if 'myremote' exists
           if dvc remote list | grep -q 'myremote'; then
             echo "Removing existing 'myremote'..."
             dvc remote remove myremote
@@ -59,9 +61,12 @@ jobs:
           echo "Adding new DVC remote..."
           dvc remote add -d myremote s3://audiocollection/path/to/data --force
           dvc remote modify myremote region us-east-1
+          dvc remote modify myremote access_key_id "$AWS_ACCESS_KEY_ID"
+          dvc remote modify myremote secret_access_key "$AWS_SECRET_ACCESS_KEY"
 
           echo "DVC remote successfully configured."
           dvc remote list  # Verify remote setup
+          dvc remote default myremote
 
       - name: Fetch & Pull DVC Data
         run: |
