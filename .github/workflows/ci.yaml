@@ -29,8 +29,10 @@ jobs:
 
       - name: Configure DVC Remote (Local Storage)
         run: |
-          dvc remote add -d s3 file:///home/runner/work/audio-extraction/audio-extraction/s3  # Set local folder as remote
+          dvc remote remove s3 || true  # Remove existing remote if it exists (avoids error)
+          dvc remote add -d s3 file:///home/runner/work/audio-extraction/audio-extraction/s3 --force
           dvc pull
+
 
       - name: Run Pipeline
         run: |
