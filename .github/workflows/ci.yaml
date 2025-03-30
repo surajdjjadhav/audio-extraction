@@ -35,10 +35,10 @@ jobs:
         run: |
           set -e
           dvc remote list  # Debug: Check existing remotes
-          if dvc remote list | grep -q 's3'; then
-            dvc remote remove s3
+          if dvc remote list | grep -q 'myremote'; then
+            dvc remote remove myremote
           fi
-          dvc remote add -d s3 file:///home/runner/work/audio-extraction/audio-extraction/s3 --force
+          dvc remote add -d myremote file:///home/runner/work/audio-extraction/audio-extraction/s3 --force
           dvc remote list  # Verify remote is added
           dvc status  # Check status
           dvc fetch   # Fetch missing files
