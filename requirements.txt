@@ -6,4 +6,5 @@ moviepy
 streamlit
 transformers
 awscli
+from-root
 -e .
