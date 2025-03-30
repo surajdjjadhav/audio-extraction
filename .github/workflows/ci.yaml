@@ -27,18 +27,30 @@ jobs:
       - name: Setup DVC
         run: |
           set -e
-          python -m pip install dvc
+          python -m pip install dvc[dvc-s3]  # Install DVC with S3 support
           dvc version  # Verify installation
           dvc doctor   # Check DVC health
 
-      - name: Configure DVC Remote
+      - name: Configure AWS Credentials
+        run: |
+          set -e
+          echo "Configuring AWS credentials..."
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region us-east-1  # Set your preferred AWS region
+          aws s3 ls  # Verify AWS authentication
+
+      - name: Configure DVC Remote (AWS S3)
         run: |
           set -e
           dvc remote list  # Debug: Check existing remotes
           if dvc remote list | grep -q 'myremote'; then
             dvc remote remove myremote
           fi
-          dvc remote add -d myremote file:///home/runner/work/audio-extraction/audio-extraction/s3 --force
+          dvc remote add -d myremote s3://audiocollection/path/to/data --force
+          dvc remote modify myremote access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          dvc remote modify myremote secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          dvc remote modify myremote region us-east-1  # Set your region
           dvc remote list  # Verify remote is added
           dvc status  # Check status
           dvc fetch   # Fetch missing files
