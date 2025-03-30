@@ -8,5 +8,5 @@ stages:
       - app.py
     outs:
       - downloads/raw_audio/
-      - transcribed_text/
+      - downloads/transcribed_text/
       - downloads/json_files/

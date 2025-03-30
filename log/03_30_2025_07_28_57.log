@@ -1,0 +1,8 @@
+[2025-03-30 07:28:58,977] pydot - DEBUG - pydot initializing
+[2025-03-30 07:28:58,977] pydot - DEBUG - pydot 3.0.4
+[2025-03-30 07:28:59,003] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
+[2025-03-30 07:28:59,005] pydot.core - DEBUG - pydot core module initializing
+[2025-03-30 07:29:04,196] werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-03-30 07:29:04,197] werkzeug - INFO - [33mPress CTRL+C to quit[0m
+[2025-03-30 07:29:04,207] werkzeug - INFO -  * Restarting with watchdog (windowsapi)

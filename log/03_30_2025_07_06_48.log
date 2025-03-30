@@ -1,0 +1,40 @@
+[2025-03-30 07:06:50,026] pydot - DEBUG - pydot initializing
+[2025-03-30 07:06:50,026] pydot - DEBUG - pydot 3.0.4
+[2025-03-30 07:06:50,050] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
+[2025-03-30 07:06:50,051] pydot.core - DEBUG - pydot core module initializing
+[2025-03-30 07:06:55,301] werkzeug - WARNING -  * Debugger is active!
+[2025-03-30 07:06:55,309] werkzeug - INFO -  * Debugger PIN: 134-049-397
+[2025-03-30 07:07:01,249] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:07:01] "GET / HTTP/1.1" 200 -
+[2025-03-30 07:07:01,432] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:07:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-03-30 07:07:19,877] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 07:07:20,220] root - INFO - FFmpeg is installed and available.
+[2025-03-30 07:07:20,221] root - INFO - Loading Whisper model...
+[2025-03-30 07:07:28,895] root - INFO - Whisper model loaded successfully.
+[2025-03-30 07:07:28,895] root - INFO - Loading summarization model...
+[2025-03-30 07:07:32,802] root - INFO - Summarization model loaded successfully.
+[2025-03-30 07:07:32,802] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 07:07:32,804] root - INFO - Directory ensured: downloads/transcribed_text
+[2025-03-30 07:07:32,804] root - INFO - Transcribing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-03-30 07:18:36,200] root - INFO - Transcription completed successfully.
+[2025-03-30 07:18:36,201] root - INFO - Normalizing Hindi text...
+[2025-03-30 07:18:36,203] root - INFO - Text normalization completed successfully.
+[2025-03-30 07:18:36,204] root - INFO - Generating summary...
+[2025-03-30 07:18:36,275] root - ERROR - Error in generating summary: CUDA error: device-side assert triggered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[2025-03-30 07:18:36,275] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[86]:str [CUDA error: device-side assert triggered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+]
+[2025-03-30 07:18:36,276] root - ERROR - Error in processing audio: error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[86]:str [CUDA error: device-side assert triggered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+]
+[2025-03-30 07:18:36,277] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[103]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[86]:str [CUDA error: device-side assert triggered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+]]
+[2025-03-30 07:18:36,287] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:18:36] "POST / HTTP/1.1" 200 -
+[2025-03-30 07:18:36,309] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:18:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-03-30 07:21:13,896] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\dvc\\daemon.py', reloading
+[2025-03-30 07:21:13,898] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\dvc\\analytics.py', reloading
+[2025-03-30 07:21:13,900] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\dvc\\cli\\__init__.py', reloading
+[2025-03-30 07:21:13,902] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\runpy.py', reloading
+[2025-03-30 07:21:14,012] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\dvc\\__main__.py', reloading

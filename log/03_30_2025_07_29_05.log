@@ -1,0 +1,17 @@
+[2025-03-30 07:29:06,352] pydot - DEBUG - pydot initializing
+[2025-03-30 07:29:06,352] pydot - DEBUG - pydot 3.0.4
+[2025-03-30 07:29:06,377] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
+[2025-03-30 07:29:06,379] pydot.core - DEBUG - pydot core module initializing
+[2025-03-30 07:29:11,725] werkzeug - WARNING -  * Debugger is active!
+[2025-03-30 07:29:11,733] werkzeug - INFO -  * Debugger PIN: 134-049-397
+[2025-03-30 07:29:27,617] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:29:27] "GET / HTTP/1.1" 200 -
+[2025-03-30 07:29:27,792] werkzeug - INFO - 127.0.0.1 - - [30/Mar/2025 07:29:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-03-30 07:29:50,143] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 07:29:50,486] root - INFO - FFmpeg is installed and available.
+[2025-03-30 07:29:50,487] root - INFO - Loading Whisper model...
+[2025-03-30 07:29:59,073] root - INFO - Whisper model loaded successfully.
+[2025-03-30 07:29:59,073] root - INFO - Loading summarization model...
+[2025-03-30 07:30:01,679] root - INFO - Summarization model loaded successfully.
+[2025-03-30 07:30:01,679] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat
+[2025-03-30 07:30:01,682] root - INFO - Directory ensured: downloads/transcribed_text
+[2025-03-30 07:30:01,683] root - INFO - Transcribing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3

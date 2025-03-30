@@ -1,0 +1,37 @@
+schema: '2.0'
+stages:
+  process_video:
+    cmd: python app.py
+    deps:
+    - path: app.py
+      hash: md5
+      md5: 1f0e1d17f338cea5a616c35f19269b60
+      size: 3291
+    - path: scripts/download_audio.py
+      hash: md5
+      md5: 36aac4a8d368f36226a51103f9d5a4e9
+      size: 1259
+    - path: scripts/save_json.py
+      hash: md5
+      md5: d67c8fb2ca20d9ef0f8f3027e9c0fc80
+      size: 1427
+    - path: scripts/transcribe.py
+      hash: md5
+      md5: 3140a64ac6b37ec99775ca815d91eae1
+      size: 5052
+    outs:
+    - path: downloads/json_files/
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
+    - path: downloads/raw_audio/
+      hash: md5
+      md5: 0acb3062a82b191258f1c1dade24470c.dir
+      size: 15041708
+      nfiles: 1
+    - path: downloads/transcribed_text/
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
