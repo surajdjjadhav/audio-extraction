@@ -108,3 +108,17 @@ jobs:
           set -e
           echo "Running DVC pipeline..."
           dvc repro
+
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Heroku Login
+        run: |
+          echo "Logging in to Heroku..."
+          echo "${{ secrets.HEROKU_API_KEY }}" | heroku auth:token
+
+      - name: Push to Heroku
+        run: |
+          git remote add heroku https://git.heroku.com/my-app-name.git
+          git push heroku main
