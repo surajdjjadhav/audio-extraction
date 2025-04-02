@@ -1,0 +1,13 @@
+[2025-04-01 22:11:26,796] pydot - DEBUG - pydot initializing
+[2025-04-01 22:11:26,797] pydot - DEBUG - pydot 3.0.4
+[2025-04-01 22:11:26,825] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
+[2025-04-01 22:11:26,828] pydot.core - DEBUG - pydot core module initializing
+[2025-04-01 22:11:32,378] werkzeug - WARNING -  * Debugger is active!
+[2025-04-01 22:11:32,387] werkzeug - INFO -  * Debugger PIN: 119-195-508
+[2025-04-01 22:11:33,516] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\urllib3\\packages\\six.py', reloading
+[2025-04-01 22:11:33,638] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\urllib3\\connection.py', reloading
+[2025-04-01 22:11:33,775] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\site-packages\\urllib3\\util\\connection.py', reloading
+[2025-04-01 22:11:33,904] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\Miniconda3\\envs\\audio\\Lib\\socket.py', reloading
+[2025-04-01 22:11:34,029] root - ERROR - Error downloading audio: [0;31mERROR:[0m [generic] Unable to download webpage: <urllib3.connection.HTTPSConnection object at 0x000001A327A0B8E0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed (caused by TransportError('<urllib3.connection.HTTPSConnection object at 0x000001A327A0B8E0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[2025-04-01 22:11:34,033] werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 22:11:34] "POST / HTTP/1.1" 200 -
+[2025-04-01 22:11:34,218] werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 22:11:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -

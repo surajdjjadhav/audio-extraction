@@ -7,4 +7,5 @@ streamlit
 transformers
 awscli
 from-root
+indic-nlp-library
 -e .
