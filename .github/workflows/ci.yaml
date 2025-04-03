@@ -28,30 +28,13 @@ jobs:
       - name: Setup DVC with S3 Support
         run: |
           set -e
-          echo "Installing DVC with S3 support..."
           python -m pip install "dvc[s3]"
           dvc version
           dvc doctor
 
-      - name: Debug AWS Credentials (Before Config)
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          set -e
-          echo "Checking AWS CLI version..."
-          aws --version
-
-          echo "Checking AWS environment variables..."
-          echo "AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:0:4}********"
-          echo "AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:0:4}********"
-          echo "AWS_REGION: $AWS_REGION"
-
       - name: Configure AWS Credentials
         run: |
           set -e
-          echo "Configuring AWS credentials..."
           aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}" --profile default
           aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}" --profile default
           aws configure set region "${{ secrets.AWS_REGION }}" --profile default
@@ -59,54 +42,31 @@ jobs:
       - name: Verify AWS Authentication
         run: |
           set -e
-          echo "Verifying AWS authentication..."
-          aws sts get-caller-identity --profile default || { echo "AWS authentication failed!"; exit 1; }
-
-          echo "Checking S3 bucket access..."
-          if aws s3 ls s3://audiocollection/path/to/data --profile default; then
-            echo "S3 bucket is accessible."
-          else
-            echo "Warning: S3 path might not exist or access is denied."
-          fi
+          aws sts get-caller-identity --profile default
+          aws s3 ls s3://audiocollection/path/to/data --profile default || echo "S3 path might not exist."
 
       - name: Initialize DVC
         run: |
           set -e
-          echo "Initializing DVC..."
           dvc init --quiet || true  # Prevent error if already initialized
 
       - name: Configure DVC Remote (AWS S3)
         run: |
           set -e
-          echo "Configuring DVC remote..."
-          if dvc remote list | grep -q 'myremote'; then
-            echo "Removing existing 'myremote'..."
-            dvc remote remove myremote
-          fi
-
           dvc remote add -d myremote s3://audiocollection/path/to/data --force
           dvc remote modify myremote region "${{ secrets.AWS_REGION }}"
-          dvc remote modify myremote profile default  # Ensure it uses AWS CLI profile
-
-          echo "DVC remote successfully configured."
-          dvc remote list
-          dvc remote default myremote
+          dvc remote modify myremote profile default
 
       - name: Fetch & Pull DVC Data
         run: |
           set -e
-          echo "Checking for DVC files..."
           if ls *.dvc 1> /dev/null 2>&1; then
-            echo "DVC files found. Pulling data..."
-            dvc pull || { echo "DVC pull failed! Check if data exists."; exit 1; }
-          else
-            echo "No DVC files found. Skipping pull."
+            dvc pull || echo "DVC pull failed!"
           fi
 
       - name: Run DVC Pipeline
         run: |
           set -e
-          echo "Running DVC pipeline..."
           dvc repro
 
       # Install Railway CLI
@@ -119,11 +79,8 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           set -e
-          echo "Authenticating Railway CLI..."
           railway auth --token "$RAILWAY_TOKEN"
-
-          echo "Verifying Railway authentication..."
-          railway whoami || { echo "Railway authentication failed!"; exit 1; }
+          railway whoami
 
       # Deploy to Railway
       - name: Deploy to Railway
@@ -131,10 +88,15 @@ jobs:
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         run: |
           set -e
-          echo "Deploying to Railway..."
-          
-          # Ensure the correct project is selected
           railway link "$RAILWAY_PROJECT_ID"
+          railway up
 
-          # Deploy the application
-          railway up || { echo "Railway deployment failed!"; exit 1; }
+      # Install dependencies on Railway
+      - name: Install Dependencies on Railway
+        run: railway run pip install -r requirements.txt
+
+      # Start Flask App
+      - name: Start Flask App
+        run: |
+          set -e
+          railway run python app.py
