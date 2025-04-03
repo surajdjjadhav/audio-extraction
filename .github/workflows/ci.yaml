@@ -109,16 +109,32 @@ jobs:
           echo "Running DVC pipeline..."
           dvc repro
 
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+      # Install Railway CLI
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
 
-      - name: Heroku Login
+      # Authenticate with Railway using RAILWAY_TOKEN
+      - name: Authenticate Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          echo "Logging in to Heroku..."
-          echo "${{ secrets.HEROKU_API_KEY }}" | heroku auth:token
+          set -e
+          echo "Authenticating Railway CLI..."
+          railway auth --token "$RAILWAY_TOKEN"
 
-      - name: Push to Heroku
+          echo "Verifying Railway authentication..."
+          railway whoami || { echo "Railway authentication failed!"; exit 1; }
+
+      # Deploy to Railway
+      - name: Deploy to Railway
+        env:
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         run: |
-          git remote add heroku https://git.heroku.com/my-app-name.git
-          git push heroku main
+          set -e
+          echo "Deploying to Railway..."
+          
+          # Ensure the correct project is selected
+          railway link "$RAILWAY_PROJECT_ID"
+
+          # Deploy the application
+          railway up || { echo "Railway deployment failed!"; exit 1; }
