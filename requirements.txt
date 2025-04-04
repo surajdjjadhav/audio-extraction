@@ -10,5 +10,6 @@ from-root
 indic-nlp-library
 numpy
 soundfile
-
+uviconr
+gunicorn
 -e .

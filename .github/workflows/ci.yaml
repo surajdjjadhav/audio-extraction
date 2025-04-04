@@ -82,8 +82,8 @@ jobs:
           railway auth --token "$RAILWAY_TOKEN"
           railway whoami
 
-      # Deploy to Railway
-      - name: Deploy to Railway
+      # Link and Deploy to Railway
+      - name: Link and Deploy to Railway
         env:
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         run: |
@@ -99,4 +99,4 @@ jobs:
       - name: Start Flask App
         run: |
           set -e
-          railway run python app.py
+          gunicorn app:app --bind 0.0.0.0:$PORT
