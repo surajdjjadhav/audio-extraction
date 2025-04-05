@@ -37,7 +37,11 @@ jobs:
       - name: Pull DVC Data (Model/Assets)
         run: |
           dvc pull || echo "No DVC data to pull."
-
+      
+      - name: Run Tests
+        run: |
+          dvc repro --pull --force --run-cache 
+          
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
