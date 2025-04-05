@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: scripts
+Version: 0.0.1
+Summary: An MLOps project for productionizing models
+Author: surajjadhav
+Author-email: surajjadhav <sj4456046@gmail.com>
+License-File: LICENSE
+Dynamic: author
+Dynamic: license-file

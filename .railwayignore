@@ -1,0 +1,21 @@
+# Ignore virtual environments and cache
+venv/
+__pycache__/
+*.egg-info/
+*.whl
+*.zip
+*.tar
+*.pt
+*.pkl
+
+# Ignore audio/data/model files
+*.mp3
+*.wav
+*.h5
+
+# Ignore folders with heavy resources
+indic_nlp_resources/
+data/
+notebooks/
+.dvc/
+s3/

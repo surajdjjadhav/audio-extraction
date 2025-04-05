@@ -1,0 +1,14 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+scripts/__init__.py
+scripts/download_audio.py
+scripts/exception.py
+scripts/logger.py
+scripts/save_json.py
+scripts/transcribe.py
+scripts.egg-info/PKG-INFO
+scripts.egg-info/SOURCES.txt
+scripts.egg-info/dependency_links.txt
+scripts.egg-info/top_level.txt

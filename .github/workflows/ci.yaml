@@ -1,9 +1,9 @@
 name: CI Pipeline
 
-on: 
+on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   project-testing:
@@ -20,83 +20,58 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          set -e
-          echo "Upgrading pip and installing dependencies..."
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Setup DVC with S3 Support
-        run: |
-          set -e
-          python -m pip install "dvc[s3]"
-          dvc version
-          dvc doctor
-
       - name: Configure AWS Credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          set -e
-          aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}" --profile default
-          aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}" --profile default
-          aws configure set region "${{ secrets.AWS_REGION }}" --profile default
+          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+          aws configure set region "$AWS_REGION"
 
       - name: Verify AWS Authentication
         run: |
-          set -e
-          aws sts get-caller-identity --profile default
-          aws s3 ls s3://audiocollection/path/to/data --profile default || echo "S3 path might not exist."
+          aws sts get-caller-identity
+          aws s3 ls s3://audiocollection/path/to/data || echo "S3 path might not exist."
 
-      - name: Initialize DVC
+      - name: Verify DVC Initialization
         run: |
-          set -e
-          dvc init --quiet || true  # Prevent error if already initialized
+          if [ ! -d ".dvc" ]; then
+            echo "DVC not initialized. Initializing..."
+            dvc init --quiet
+          fi
 
       - name: Configure DVC Remote (AWS S3)
         run: |
-          set -e
           dvc remote add -d myremote s3://audiocollection/path/to/data --force
           dvc remote modify myremote region "${{ secrets.AWS_REGION }}"
-          dvc remote modify myremote profile default
 
       - name: Fetch & Pull DVC Data
         run: |
-          set -e
           if ls *.dvc 1> /dev/null 2>&1; then
             dvc pull || echo "DVC pull failed!"
           fi
 
       - name: Run DVC Pipeline
-        run: |
-          set -e
-          dvc repro
+        run: dvc repro
 
-      # Install Railway CLI
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      # Authenticate with Railway using RAILWAY_TOKEN
       - name: Authenticate Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          set -e
           railway auth --token "$RAILWAY_TOKEN"
           railway whoami
 
-      # Link and Deploy to Railway
       - name: Link and Deploy to Railway
         env:
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         run: |
-          set -e
           railway link "$RAILWAY_PROJECT_ID"
           railway up
-
-      # Install dependencies on Railway
-      - name: Install Dependencies on Railway
-        run: railway run pip install -r requirements.txt
-
-      # Start Flask App
-      - name: Start Flask App
-        run: |
-          set -e
-          gunicorn app:app --bind 0.0.0.0:$PORT

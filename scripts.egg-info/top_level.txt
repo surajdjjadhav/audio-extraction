@@ -1,0 +1,8 @@
+downloads
+indic_nlp_resources
+log
+models
+s3
+scripts
+static
+templates

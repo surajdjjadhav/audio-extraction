@@ -12,4 +12,6 @@ numpy
 soundfile
 uvicorn
 gunicorn
+dvc[s3]
+
 -e .

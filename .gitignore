@@ -1,6 +1,11 @@
-venv/
-__pycache__/
+
 *.pyc
 *.pyo
 .DS_Store
 .env
+*.mp3
+*.wav
+*.pkl
+*.pt
+venv/
+__pycache__/
