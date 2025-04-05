@@ -1,50 +1,3 @@
-# import json
-# import os
-# from scripts.download_audio import download_audio
-# from scripts.transcribe import transcribe_audio, generate_summary
-# from scripts.save_json import save_transcript_and_summary
-
-# def process_video(video_title, url, output_folder="downloads"):
-#     """
-#     Processes a YouTube video by downloading audio, transcribing it, generating a summary,
-#     and saving the results to a JSON file.
-#     """
-#     try:
-#         if not video_title or not url:
-#             raise ValueError("Video title and URL cannot be empty.")
-
-#         os.makedirs(output_folder, exist_ok=True)  # Ensure folder exists
-
-#         # Step 1: Download Audio
-#         audio_path = download_audio(youtube_url=url, custom_title=video_title, output_folder=output_folder)
-        
-#         if not audio_path or not os.path.exists(audio_path):
-#             raise FileNotFoundError("Audio download failed.")
-
-#         # Step 2: Transcribe Audio
-#         transcription = transcribe_audio(audio_path=audio_path)
-#         if not transcription:
-#             raise ValueError("Transcription not created. Check the transcription function.")
-
-#         # Step 3: Generate Summary
-#         summary = generate_summary(transcription)
-#         if not summary:
-#             raise ValueError("Summary not created. Check the summary function.")
-
-#         # Step 4: Save Results
-#         save_transcript_and_summary(video_title=video_title, transcript=transcription, summary=summary)
-
-#         print(f"✅ Transcription and summary saved for {video_title}")
-
-#     except Exception as e:
-#         print(f"❌ Error: {e}")
-
-# if __name__ == "__main__":
-#     video_title = input("Enter video title: ").strip()
-#     url = input("Enter video URL: ").strip()
-#     process_video(video_title, url)
-
-
 import os
 from scripts.logger import logging
 from scripts.exception import MyException
@@ -53,8 +6,6 @@ from scripts.download_audio import download_audio
 from scripts.transcribe import HindiTranscriber
 from scripts.save_json import save_transcript_and_summary
 import sys
-
-
 
 app = Flask(__name__)
 
@@ -84,8 +35,7 @@ def process_video(video_title, url):
 
     except Exception as e:
         logging.error(f"Error processing video: {e}")
-        raise  MyException(e , sys)
-
+        raise MyException(e, sys)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -114,8 +64,7 @@ def index():
 
     return render_template("index.html")
 
-
 # Gunicorn entry point
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))  # Default to 5000
-    app.run(debug=True ,host="0.0.0.0", port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)

@@ -5,7 +5,7 @@ import os
 import sys
 import subprocess
 from transformers import pipeline
-from scripts.logger import logging 
+from scripts.logger import logging
 from scripts.exception import MyException
 
 def ensure_directory_exists(directory):
@@ -50,6 +50,10 @@ class HindiTranscriber:
                 logging.error(f"Audio file not found: {audio_file}")
                 raise FileNotFoundError(f"Audio file not found: {audio_file}")
             
+            if "hi" not in self.model.available_languages:
+                logging.error("Hindi language is not supported by the Whisper model.")
+                raise ValueError("Hindi language is not supported by the Whisper model.")
+            
             logging.info(f"Transcribing audio file: {audio_file}")
             result = self.model.transcribe(audio_file, language="hi")
             logging.info("Transcription completed successfully.")
@@ -64,6 +68,10 @@ class HindiTranscriber:
         """
         try:
             logging.info("Normalizing Hindi text...")
+            if not hasattr(DevanagariNormalizer, "normalize"):
+                logging.error("DevanagariNormalizer is not properly initialized.")
+                raise ImportError("DevanagariNormalizer is not available. Check the indic-nlp-library installation.")
+            
             normalizer = DevanagariNormalizer()
             normalized_text = normalizer.normalize(text)
             
@@ -83,6 +91,10 @@ class HindiTranscriber:
         """
         try:
             logging.info("Generating summary...")
+            if not hasattr(self.summarizer, "__call__"):
+                logging.error("Summarization model is not properly initialized.")
+                raise RuntimeError("Summarization model is not available. Check the transformers library installation.")
+            
             summary = self.summarizer(text, max_length=max_length, min_length=min_length, do_sample=False)
             logging.info("Summary generated successfully.")
             return summary[0]["summary_text"]

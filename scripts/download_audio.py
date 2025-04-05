@@ -2,6 +2,7 @@ import yt_dlp
 import os
 from scripts.exception import MyException
 from scripts.logger import logging
+
 def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio"):
     try:
         # Ensure the output folder exists
@@ -33,17 +34,3 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
     except Exception as e:
         logging.error(f"Error downloading audio: {e}")
         raise MyException(e)
-
-# if __name__ == "__main__":
-#     download_audio()
-
-
-
-
-
-
-
-
-
-
-

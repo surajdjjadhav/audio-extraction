@@ -16,3 +16,4 @@
 [2025-04-05 16:14:20,723] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
 [2025-04-05 16:14:20,724] root - INFO - Directory ensured: downloads/transcribed_text
 [2025-04-05 16:14:20,724] root - INFO - Transcribing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:24:34,570] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
