@@ -6,11 +6,11 @@ on:
       - main
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Python
@@ -18,62 +18,34 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Upgrade pip and Install Python Dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install dvc[s3]  # Install DVC with S3 support
 
-      - name: Install System Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-
-      - name: Configure AWS Credentials
+      - name: Configure AWS for DVC
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
-          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
-          aws configure set region "$AWS_REGION"
+          dvc remote modify myremote access_key_id "$AWS_ACCESS_KEY_ID"
+          dvc remote modify myremote secret_access_key "$AWS_SECRET_ACCESS_KEY"
+          dvc remote modify myremote region "$AWS_REGION"
 
-      - name: Verify AWS Authentication
-        run: aws sts get-caller-identity
-
-      - name: Verify and Setup DVC
+      - name: Pull DVC Data (Model/Assets)
         run: |
-          if [ ! -d ".dvc" ]; then
-            dvc init --quiet
-          fi
-          dvc remote add -f -d myremote s3://audiocollection/path/to/data
-          dvc remote modify myremote region "${{ secrets.AWS_REGION }}"
-
-      - name: Pull DVC Data
-        run: |
-          if ls *.dvc 1> /dev/null 2>&1; then
-            dvc pull || echo "DVC pull failed!"
-          else
-            echo "No .dvc files found."
-          fi
-
-      - name: Run DVC Pipeline
-        run: |
-          dvc repro || echo "DVC pipeline did not run. Check dvc.yaml"
+          dvc pull || echo "No DVC data to pull."
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Authenticate Railway
+      - name: Authenticate & Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          railway auth --token "$RAILWAY_TOKEN"
-          railway whoami
-
-      - name: Link and Deploy to Railway
-        env:
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         run: |
+          railway auth --token "$RAILWAY_TOKEN"
           railway link "$RAILWAY_PROJECT_ID"
-          railway up --service backend || echo "Deployment may have failed. Check logs."
+          railway up --service backend
