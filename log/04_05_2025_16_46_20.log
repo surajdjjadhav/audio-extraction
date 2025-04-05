@@ -1,0 +1,36 @@
+[2025-04-05 16:46:22,779] pydot - DEBUG - pydot initializing
+[2025-04-05 16:46:22,779] pydot - DEBUG - pydot 3.0.4
+[2025-04-05 16:46:22,833] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
+[2025-04-05 16:46:22,836] pydot.core - DEBUG - pydot core module initializing
+[2025-04-05 16:46:30,429] werkzeug - WARNING -  * Debugger is active!
+[2025-04-05 16:46:30,440] werkzeug - INFO -  * Debugger PIN: 518-811-281
+[2025-04-05 16:46:34,361] root - INFO - Downloading audio for: Chalawe Ki Raat
+[2025-04-05 16:46:40,007] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:46:40,009] root - INFO - Initializing transcriber...
+[2025-04-05 16:46:40,372] root - INFO - FFmpeg is installed and available.
+[2025-04-05 16:46:40,372] root - INFO - Loading Whisper model...
+[2025-04-05 16:46:46,337] root - INFO - Whisper model loaded successfully.
+[2025-04-05 16:46:46,338] root - INFO - Loading summarization model...
+[2025-04-05 16:46:49,439] root - INFO - Summarization model loaded successfully.
+[2025-04-05 16:46:49,439] root - INFO - Processing transcription...
+[2025-04-05 16:46:49,440] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:46:49,441] root - INFO - Directory ensured: downloads/transcribed_text
+[2025-04-05 16:46:49,441] root - INFO - Transcribing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:46:52,727] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:46:52] "GET / HTTP/1.1" 200 -
+[2025-04-05 16:46:52,885] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:46:52] "GET /static/style.css HTTP/1.1" 200 -
+[2025-04-05 16:46:52,930] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:46:52] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-05 16:47:08,491] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:47:08] "GET / HTTP/1.1" 200 -
+[2025-04-05 16:47:08,513] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:47:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-04-05 16:47:54,189] root - INFO - Downloading audio for: chalave ki raat
+[2025-04-05 16:48:10,509] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\chalave ki raat.mp3
+[2025-04-05 16:48:10,511] root - ERROR - Error processing video: Failed to download audio.
+[2025-04-05 16:48:10,511] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\app.py]at number:[23]:str [Failed to download audio.]
+[2025-04-05 16:48:10,513] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:48:10] "POST / HTTP/1.1" 200 -
+[2025-04-05 16:48:10,543] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:48:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-04-05 16:48:10,619] root - INFO - Downloading audio for: chalave ki raat
+[2025-04-05 16:48:26,793] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\chalave ki raat.mp3
+[2025-04-05 16:48:26,794] root - ERROR - Error processing video: Failed to download audio.
+[2025-04-05 16:48:26,794] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\app.py]at number:[23]:str [Failed to download audio.]
+[2025-04-05 16:48:26,795] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:48:26] "POST / HTTP/1.1" 200 -
+[2025-04-05 16:48:26,822] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:48:26] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-04-05 16:51:36,380] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\download_audio.py', reloading

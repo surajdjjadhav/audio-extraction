@@ -50,14 +50,13 @@ class HindiTranscriber:
                 logging.error(f"Audio file not found: {audio_file}")
                 raise FileNotFoundError(f"Audio file not found: {audio_file}")
             
-            if "hi" not in self.model.available_languages:
-                logging.error("Hindi language is not supported by the Whisper model.")
-                raise ValueError("Hindi language is not supported by the Whisper model.")
-            
             logging.info(f"Transcribing audio file: {audio_file}")
             result = self.model.transcribe(audio_file, language="hi")
             logging.info("Transcription completed successfully.")
             return result["text"]
+        except KeyError as e:
+            logging.error(f"Error in transcription: Language 'hi' might not be supported. {e}")
+            raise ValueError("The specified language 'hi' is not supported by the Whisper model.")
         except Exception as e:
             logging.error(f"Error in transcribing audio: {e}")
             raise MyException(e, sys)

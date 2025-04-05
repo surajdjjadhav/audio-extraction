@@ -42,3 +42,4 @@
 [2025-04-05 16:31:39,287] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\app.py]at number:[29]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[113]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']]]
 [2025-04-05 16:31:39,311] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:31:39] "POST / HTTP/1.1" 200 -
 [2025-04-05 16:31:39,341] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:31:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-04-05 16:46:18,275] werkzeug - INFO -  * Detected change in 'C:\\Users\\suraj\\OneDrive\\Desktop\\ML_pipe\\ai_agent_audio\\audio-extraction\\scripts\\transcribe.py', reloading
