@@ -4,3 +4,41 @@
 [2025-04-05 16:25:30,424] pydot.core - DEBUG - pydot core module initializing
 [2025-04-05 16:25:36,233] werkzeug - WARNING -  * Debugger is active!
 [2025-04-05 16:25:36,242] werkzeug - INFO -  * Debugger PIN: 518-811-281
+[2025-04-05 16:30:22,715] root - INFO - Downloading audio for: Chalawe Ki Raat
+[2025-04-05 16:30:28,478] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:30:28,479] root - INFO - Initializing transcriber...
+[2025-04-05 16:30:28,840] root - INFO - FFmpeg is installed and available.
+[2025-04-05 16:30:28,840] root - INFO - Loading Whisper model...
+[2025-04-05 16:30:35,183] root - INFO - Whisper model loaded successfully.
+[2025-04-05 16:30:35,184] root - INFO - Loading summarization model...
+[2025-04-05 16:30:38,037] root - INFO - Summarization model loaded successfully.
+[2025-04-05 16:30:38,037] root - INFO - Processing transcription...
+[2025-04-05 16:30:38,038] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:30:38,038] root - INFO - Directory ensured: downloads/transcribed_text
+[2025-04-05 16:30:38,039] root - ERROR - Error in transcribing audio: 'Whisper' object has no attribute 'available_languages'
+[2025-04-05 16:30:38,039] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']
+[2025-04-05 16:30:38,040] root - ERROR - Error in processing audio: error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']
+[2025-04-05 16:30:38,040] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[113]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']]
+[2025-04-05 16:30:38,040] root - ERROR - Error processing video: error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[113]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']]
+[2025-04-05 16:30:38,041] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\app.py]at number:[29]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[113]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']]]
+[2025-04-05 16:30:38,055] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:30:38] "POST / HTTP/1.1" 200 -
+[2025-04-05 16:30:38,143] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:30:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+[2025-04-05 16:31:23,269] root - INFO - Downloading audio for: Chalawe Ki Raat
+[2025-04-05 16:31:28,552] root - INFO - YouTube audio downloaded successfully: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:31:28,553] root - INFO - Initializing transcriber...
+[2025-04-05 16:31:28,937] root - INFO - FFmpeg is installed and available.
+[2025-04-05 16:31:28,937] root - INFO - Loading Whisper model...
+[2025-04-05 16:31:36,068] root - INFO - Whisper model loaded successfully.
+[2025-04-05 16:31:36,069] root - INFO - Loading summarization model...
+[2025-04-05 16:31:39,281] root - INFO - Summarization model loaded successfully.
+[2025-04-05 16:31:39,282] root - INFO - Processing transcription...
+[2025-04-05 16:31:39,283] root - INFO - Processing audio file: downloads/raw_audio\Chalawe Ki Raat.mp3
+[2025-04-05 16:31:39,284] root - INFO - Directory ensured: downloads/transcribed_text
+[2025-04-05 16:31:39,285] root - ERROR - Error in transcribing audio: 'Whisper' object has no attribute 'available_languages'
+[2025-04-05 16:31:39,285] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']
+[2025-04-05 16:31:39,285] root - ERROR - Error in processing audio: error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']
+[2025-04-05 16:31:39,286] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[113]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']]
+[2025-04-05 16:31:39,287] root - ERROR - Error processing video: error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[113]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']]
+[2025-04-05 16:31:39,287] root - ERROR - error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\app.py]at number:[29]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[113]:str [error occured in python script:[C:\Users\suraj\OneDrive\Desktop\ML_pipe\ai_agent_audio\audio-extraction\scripts\transcribe.py]at number:[53]:str ['Whisper' object has no attribute 'available_languages']]]
+[2025-04-05 16:31:39,311] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:31:39] "POST / HTTP/1.1" 200 -
+[2025-04-05 16:31:39,341] werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 16:31:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
