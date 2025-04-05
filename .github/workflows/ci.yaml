@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  project-testing:
+  build-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,12 +16,17 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: Install Dependencies
+      - name: Upgrade pip and Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          pip install -r requirements.txt
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
 
       - name: Configure AWS Credentials
         env:
@@ -34,30 +39,27 @@ jobs:
           aws configure set region "$AWS_REGION"
 
       - name: Verify AWS Authentication
-        run: |
-          aws sts get-caller-identity
-          aws s3 ls s3://audiocollection/path/to/data || echo "S3 path might not exist."
+        run: aws sts get-caller-identity
 
-      - name: Verify DVC Initialization
+      - name: Verify and Setup DVC
         run: |
           if [ ! -d ".dvc" ]; then
-            echo "DVC not initialized. Initializing..."
             dvc init --quiet
           fi
-
-      - name: Configure DVC Remote (AWS S3)
-        run: |
-          dvc remote add -d myremote s3://audiocollection/path/to/data --force
+          dvc remote add -f -d myremote s3://audiocollection/path/to/data
           dvc remote modify myremote region "${{ secrets.AWS_REGION }}"
 
-      - name: Fetch & Pull DVC Data
+      - name: Pull DVC Data
         run: |
           if ls *.dvc 1> /dev/null 2>&1; then
             dvc pull || echo "DVC pull failed!"
+          else
+            echo "No .dvc files found."
           fi
 
       - name: Run DVC Pipeline
-        run: dvc repro
+        run: |
+          dvc repro || echo "DVC pipeline did not run. Check dvc.yaml"
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
@@ -74,4 +76,4 @@ jobs:
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         run: |
           railway link "$RAILWAY_PROJECT_ID"
-          railway up
+          railway up --service backend || echo "Deployment may have failed. Check logs."

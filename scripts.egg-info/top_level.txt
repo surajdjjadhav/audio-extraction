@@ -4,5 +4,6 @@ log
 models
 s3
 scripts
+src
 static
 templates

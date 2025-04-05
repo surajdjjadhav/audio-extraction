@@ -1,9 +1,0 @@
-[2025-04-01 22:15:22,440] pydot - DEBUG - pydot initializing
-[2025-04-01 22:15:22,440] pydot - DEBUG - pydot 3.0.4
-[2025-04-01 22:15:22,465] pydot.dot_parser - DEBUG - pydot dot_parser module initializing
-[2025-04-01 22:15:22,466] pydot.core - DEBUG - pydot core module initializing
-[2025-04-01 22:15:27,994] werkzeug - WARNING -  * Debugger is active!
-[2025-04-01 22:15:28,002] werkzeug - INFO -  * Debugger PIN: 119-195-508
-[2025-04-01 22:15:28,049] werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 22:15:28] "GET / HTTP/1.1" 200 -
-[2025-04-01 22:15:28,231] werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 22:15:28] "GET /static/style.css HTTP/1.1" 200 -
-[2025-04-01 22:15:28,245] werkzeug - INFO - 127.0.0.1 - - [01/Apr/2025 22:15:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

@@ -45,7 +45,7 @@ class HindiTranscriber:
         Transcribes an audio file and returns the raw Hindi text.
         """
         try:
-            audio_file = f"{audio_file}.mp3"
+            audio_file = f"{audio_file}"
             if not os.path.exists(audio_file):
                 logging.error(f"Audio file not found: {audio_file}")
                 raise FileNotFoundError(f"Audio file not found: {audio_file}")

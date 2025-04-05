@@ -11,7 +11,7 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
         safe_title = custom_title.replace("#", "").strip()
         safe_title = "".join(c if c.isalnum() or c in " _-" else "_" for c in safe_title)
         
-        output_path = os.path.join(output_folder, f"{safe_title}")
+        output_path = os.path.join(output_folder, f"{safe_title}.mp3")
 
         ydl_opts = {
             'format': 'bestaudio/best',
