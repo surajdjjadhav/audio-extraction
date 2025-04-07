@@ -8,5 +8,5 @@
 *.pt
 venv/
 __pycache__/
-*Procfile
-*railway.json
+Procfile
+railway.json
