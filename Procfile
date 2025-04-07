@@ -1,1 +1,2 @@
-gunicorn app:app --bind 0.0.0.0:$PORT
+sh -c 'gunicorn app:app --bind 0.0.0.0:$PORT'
+
