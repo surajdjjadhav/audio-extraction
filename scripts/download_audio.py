@@ -7,12 +7,12 @@ from scripts.exception import MyException
 from scripts.logger import logging
 
 
-def check_dependencies():
-    """Check if required dependencies are installed."""
-    # Check if FFmpeg is installed
-    if shutil.which('ffmpeg') is None:
-        logging.error("FFmpeg is not installed. Please install FFmpeg to extract audio.")
-        raise EnvironmentError("FFmpeg is not installed. Please install FFmpeg to extract audio.")
+# def check_dependencies():
+#     """Check if required dependencies are installed."""
+#     # Check if FFmpeg is installed
+#     if shutil.which('ffmpeg') is None:
+#         logging.error("FFmpeg is not installed. Please install FFmpeg to extract audio.")
+#         raise EnvironmentError("FFmpeg is not installed. Please install FFmpeg to extract audio.")
 
 
 def sanitize_filename(name):
@@ -39,7 +39,7 @@ def progress_hook(d):
 def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio"):
     try:
         # Check dependencies
-        check_dependencies()
+        # check_dependencies()
 
         # Validate YouTube URL
         if not youtube_url or not youtube_url.startswith("http"):
