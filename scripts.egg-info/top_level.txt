@@ -1,9 +1,8 @@
 downloads
+flask_app
 indic_nlp_resources
 log
 models
 s3
 scripts
 src
-static
-templates

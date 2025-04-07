@@ -2,6 +2,8 @@ LICENSE
 README.md
 pyproject.toml
 setup.py
+flask_app/app.py
+flask_app/setup.py
 scripts/__init__.py
 scripts/download_audio.py
 scripts/exception.py
