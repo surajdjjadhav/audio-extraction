@@ -3,3 +3,5 @@ __pycache__/
 .env
 .dvc/
 .dvc/config
+Procfile
+railway.json
