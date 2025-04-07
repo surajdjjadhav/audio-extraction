@@ -2,6 +2,7 @@ import yt_dlp
 import os
 from scripts.exception import MyException
 from scripts.logger import logging
+import sys
 
 def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio"):
     try:
@@ -43,7 +44,7 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
 
     except yt_dlp.utils.DownloadError as e:
         logging.error(f"Download error: {e}")
-        raise MyException(f"Failed to download audio: {e}")
+        raise MyException(e ,sys)
     except Exception as e:
         logging.error(f"Error downloading audio: {e}")
-        raise MyException(e)
+        raise MyException(e , sys)
