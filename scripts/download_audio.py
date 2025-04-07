@@ -80,7 +80,7 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
 
     except yt_dlp.utils.DownloadError as e:
         logging.error(f"Download error: {e}")
-        raise MyException(str(e), sys.exc_info())
+        raise MyException(str(e), sys)
     except Exception as e:
         logging.error(f"Error downloading audio: {e}")
-        raise MyException(str(e), sys.exc_info())
+        raise MyException(str(e), sys)
