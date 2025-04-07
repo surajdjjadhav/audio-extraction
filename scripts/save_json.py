@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from scripts.exception import MyException
 from scripts.logger import logging
 
@@ -34,4 +35,4 @@ def save_transcript_and_summary(video_title, transcript, summary, output_folder=
 
     except Exception as e:
         logging.error(f"❌ Error saving transcript and summary: {e}")
-        raise MyException(f"Failed to save transcript and summary: {e}")
+        raise MyException(f"Failed to save transcript and summary: {e}", sys)

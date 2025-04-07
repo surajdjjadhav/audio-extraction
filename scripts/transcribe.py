@@ -16,7 +16,7 @@ def ensure_directory_exists(directory):
         logging.info(f"Directory ensured: {directory}")
     except Exception as e:
         logging.error(f"Error creating directory {directory}: {e}")
-        raise MyException(e, sys)
+        raise MyException(str(e), sys)
 
 def check_ffmpeg():
     """Check if FFmpeg is installed and available."""
@@ -59,7 +59,7 @@ class HindiTranscriber:
             raise ValueError("The specified language 'hi' is not supported by the Whisper model.")
         except Exception as e:
             logging.error(f"Error in transcribing audio: {e}")
-            raise MyException(e, sys)
+            raise MyException(str(e), sys)
 
     def normalize_hindi_text(self, text):
         """
@@ -82,7 +82,7 @@ class HindiTranscriber:
             return normalized_text.strip()
         except Exception as e:
             logging.error(f"Error in normalizing text: {e}")
-            raise MyException(e, sys)
+            raise MyException(str(e), sys)
 
     def generate_summary(self, text, max_length=100, min_length=30):
         """
@@ -99,7 +99,7 @@ class HindiTranscriber:
             return summary[0]["summary_text"]
         except Exception as e:
             logging.error(f"Error in generating summary: {e}")
-            raise MyException(e, sys)
+            raise MyException(str(e), sys)
 
     def process_audio(self, audio_path, output_dir):
         """
@@ -123,4 +123,4 @@ class HindiTranscriber:
             return clean_text, summary
         except Exception as e:
             logging.error(f"Error in processing audio: {e}")
-            raise MyException(e, sys)
+            raise MyException(str(e), sys)
