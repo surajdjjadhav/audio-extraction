@@ -1,11 +1,12 @@
 import os
+import sys
+from flask import Flask, request, render_template
+
 from scripts.logger import logging
 from scripts.exception import MyException
-from flask import Flask, request, render_template
 from scripts.download_audio import download_audio
 from scripts.transcribe import HindiTranscriber
 from scripts.save_json import save_transcript_and_summary
-import sys
 
 app = Flask(__name__)
 
@@ -22,20 +23,28 @@ def process_video(video_title, url):
         if not os.path.exists(audio_path):
             raise FileNotFoundError("Failed to download audio.")
 
-        logging.info("Initializing transcriber...")
-        transcriber = HindiTranscriber(model_size="medium" , audio_file=audio_path)  # Adjust model size if needed
+        logging.info("Initializing HindiTranscriber...")
+        # Load Whisper on CPU to avoid memory issues
+        transcriber = HindiTranscriber(
+            model_size="medium",
+            audio_file=audio_path,
+            device="cpu"
+        )
 
         logging.info("Processing transcription...")
-        final_transcription, summary = transcriber.process_audio( output_dir="downloads/transcribed_text")
+        final_transcription, summary = transcriber.process_audio(
+            output_dir="downloads/transcribed_text"
+        )
 
-        logging.info("Saving transcript and summary...")
+        logging.info("Saving transcript and summary to JSON...")
         save_transcript_and_summary(video_title, final_transcription, summary)
 
         return final_transcription, summary
 
     except Exception as e:
         logging.error(f"Error processing video: {e}")
-        raise MyException(e, sys)
+        raise MyException(str(e), sys)
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -54,17 +63,18 @@ def index():
 
             return render_template(
                 "index.html",
-                message="Processing complete!",
+                message="✅ Processing complete!",
                 video_title=video_title,
                 transcription=transcription,
                 summary=summary
             )
         except Exception as e:
-            return render_template("index.html", error=str(e))
+            return render_template("index.html", error=f"❌ {str(e)}")
 
     return render_template("index.html")
 
+
 # Gunicorn entry point
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))  # Default to 5000
+    port = int(os.getenv("PORT", 5000))  # Default to port 5000 if not set
     app.run(debug=True, host="0.0.0.0", port=port)

@@ -34,21 +34,33 @@ def check_ffmpeg():
 
 
 class HindiTranscriber:
-    def __init__(self, audio_file, model_size="base", summarizer_model="csebuetnlp/mT5_multilingual_XLSum"):
+    def __init__(self, audio_file, model_size="base", summarizer_model="csebuetnlp/mT5_multilingual_XLSum", device="cpu"):
         check_ffmpeg()
-        logging.info(f"Loading Whisper model '{model_size}'...")
-        print(f"🔁 Loading Whisper model: {model_size}")
-        self.model = whisper.load_model(model_size)
+
+        self.device = device
+        self.model_size = model_size
+        self.file_path = audio_file
+
+        logging.info(f"Loading Whisper model '{self.model_size}' on {self.device}...")
+        print(f"🔁 Loading Whisper model: {self.model_size} on {self.device}")
+        try:
+            self.model = whisper.load_model(self.model_size, device=self.device)
+        except RuntimeError as e:
+            logging.error(f"Failed to load Whisper model: {e}")
+            raise MyException(str(e), sys)
+
         logging.info("Whisper model loaded successfully.")
         print("✅ Whisper model loaded.")
 
         logging.info("Loading summarization model...")
         print("🔁 Loading summarization model...")
-        self.summarizer = pipeline("summarization", model=summarizer_model, tokenizer=summarizer_model)
+        try:
+            self.summarizer = pipeline("summarization", model=summarizer_model, tokenizer=summarizer_model)
+        except Exception as e:
+            logging.error(f"Failed to load summarization model: {e}")
+            raise MyException(str(e), sys)
         logging.info("Summarization model loaded successfully.")
         print("✅ Summarization model loaded.")
-        logging.info(f"Audio file path: {audio_file}")
-        self.file_path = audio_file
 
     def transcribe_audio(self):
         try:
