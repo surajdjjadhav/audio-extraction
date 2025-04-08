@@ -15,9 +15,10 @@ scripts.egg-info/SOURCES.txt
 scripts.egg-info/dependency_links.txt
 scripts.egg-info/top_level.txt
 src/scripts/__init__.py
-src/scripts/app.py
 src/scripts/setup.py
 src/scripts/template.py
+src/scripts/flask_app/app.py
+src/scripts/flask_app/setup.py
 src/scripts/scripts/__init__.py
 src/scripts/scripts/download_audio.py
 src/scripts/scripts/exception.py
