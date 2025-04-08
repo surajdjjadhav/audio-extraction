@@ -2,18 +2,19 @@ FROM python:3.11-slim
 
 WORKDIR /app/flask_app
 
-# Copy application and scripts
+# Install ffmpeg via apt (no need to include ffmpeg binaries manually)
+RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
+
+# Copy your project files
 COPY flask_app/ /app/flask_app/
 COPY scripts/ /app/scripts/
-
-# ✅ Copy .project-root to /app
 COPY .project-root /app/.project-root
+COPY requirements.txt /app/
 
-# Add /app to Python path so it can find scripts and logger
 ENV PYTHONPATH=/app
 
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install -r /app/requirements.txt
 
 EXPOSE 5000
 
