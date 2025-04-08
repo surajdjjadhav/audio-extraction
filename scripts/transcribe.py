@@ -7,6 +7,7 @@ import subprocess
 from transformers import pipeline
 from scripts.logger import logging
 from scripts.exception import MyException
+from scripts.download_audio import download_audio
 
 def ensure_directory_exists(directory):
     """Ensure the given directory exists."""
@@ -124,3 +125,11 @@ class HindiTranscriber:
         except Exception as e:
             logging.error(f"Error in processing audio: {e}")
             raise MyException(str(e), sys)
+        
+
+if __name__ == "__main__":
+    url_inoput = input("Enter the YouTube URL: ")
+    title_input = input("Enter the custom title: ")
+    file_path = download_audio(url_inoput, title_input)
+    transcriber = HindiTranscriber(model_size="medium")
+    transcriber.process_audio(file_path , "downloads/transcribed_text")

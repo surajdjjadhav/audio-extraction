@@ -51,7 +51,7 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
 
         # Sanitize title and generate output path
         safe_title = sanitize_filename(custom_title)
-        output_path = os.path.join(output_folder, f"{safe_title}.mp3")
+        output_path = os.path.join(output_folder, f"{safe_title}")
         output_path = get_unique_filename(output_path)
 
         # Check write permissions
@@ -76,7 +76,8 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
             ydl.download([youtube_url])
 
         logging.info(f"YouTube audio downloaded successfully: {output_path}")
-        return output_path
+
+        return f"{output_path}.mp3"
 
     except yt_dlp.utils.DownloadError as e:
         logging.error(f"Download error: {e}")
@@ -84,3 +85,5 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
     except Exception as e:
         logging.error(f"Error downloading audio: {e}")
         raise MyException(str(e), sys)
+
+
