@@ -85,5 +85,12 @@ def download_audio(youtube_url, custom_title, output_folder="downloads/raw_audio
     except Exception as e:
         logging.error(f"Error downloading audio: {e}")
         raise MyException(str(e), sys)
+    
 
+
+# if __name__== "__main__":
+#     # Example usage
+#     youtube_url = input("Enter YouTube URL: ")
+#     custom_title = input("Enter custom title: ")
+#     download_audio(youtube_url, custom_title)
 
