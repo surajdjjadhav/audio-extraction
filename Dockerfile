@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
 COPY flask_app/ /app/flask_app/
 COPY scripts/ /app/scripts/
 COPY .project-root /app/.project-root
-COPY requirements.txt /app/
+
 
 ENV PYTHONPATH=/app
 
