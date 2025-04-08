@@ -41,18 +41,18 @@ def save_transcript_and_summary(video_title, transcript, summary, output_folder=
 
 
 
-if __name__ == "__main__":
-    try:
-        model_choice = input("🧠 Choose Whisper model size (tiny/base/small/medium/large): ").strip().lower()
+# if __name__ == "__main__":
+#     try:
+#         model_choice = input("🧠 Choose Whisper model size (tiny/base/small/medium/large): ").strip().lower()
 
-        if model_choice not in ['tiny', 'base', 'small', 'medium', 'large']:
-            print("⚠️ Invalid model selected. Using default: base")
-            model_choice = "base"
+#         if model_choice not in ['tiny', 'base', 'small', 'medium', 'large']:
+#             print("⚠️ Invalid model selected. Using default: base")
+#             model_choice = "base"
 
-        file_path = "downloads/raw_audio/suraj.mp3"
+#         file_path = "downloads/raw_audio/suraj.mp3"
 
-        transcriber = HindiTranscriber(audio_file=file_path, model_size=model_choice)
-        clean_text, summary = transcriber.process_audio("downloads/transcribed_text")
-        save_transcript_and_summary("Suraj", clean_text, summary)
-    except Exception as e:
-        print(f"❌ An error occurred: {e}")
+#         transcriber = HindiTranscriber(audio_file=file_path, model_size=model_choice)
+#         clean_text, summary = transcriber.process_audio("downloads/transcribed_text")
+#         save_transcript_and_summary("Suraj", clean_text, summary)
+#     except Exception as e:
+#         print(f"❌ An error occurred: {e}")

@@ -23,10 +23,10 @@ def process_video(video_title, url):
             raise FileNotFoundError("Failed to download audio.")
 
         logging.info("Initializing transcriber...")
-        transcriber = HindiTranscriber(model_size="medium")  # Adjust model size if needed
+        transcriber = HindiTranscriber(model_size="medium" , audio_file=audio_path)  # Adjust model size if needed
 
         logging.info("Processing transcription...")
-        final_transcription, summary = transcriber.process_audio(audio_path, output_dir="downloads/transcribed_text")
+        final_transcription, summary = transcriber.process_audio( output_dir="downloads/transcribed_text")
 
         logging.info("Saving transcript and summary...")
         save_transcript_and_summary(video_title, final_transcription, summary)
