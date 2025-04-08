@@ -2,14 +2,14 @@ FROM python:3.11-slim
 
 WORKDIR /app/flask_app
 
-# Install ffmpeg via apt (no need to include ffmpeg binaries manually)
+# Install ffmpeg
 RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
 
 # Copy your project files
 COPY flask_app/ /app/flask_app/
 COPY scripts/ /app/scripts/
 COPY .project-root /app/.project-root
-
+COPY requirements.txt /app/  
 
 ENV PYTHONPATH=/app
 
