@@ -10,6 +10,7 @@ from scripts.logger import logging
 from scripts.exception import MyException
 from scripts.download_audio import download_audio
 import warnings
+import torch 
 
 warnings.filterwarnings("ignore")
 
@@ -33,13 +34,23 @@ def check_ffmpeg():
         raise RuntimeError("FFmpeg is not installed or not added to PATH. Install it from https://ffmpeg.org/download.html")
 
 
+
 class HindiTranscriber:
-    def __init__(self, audio_file, model_size="base", summarizer_model="csebuetnlp/mT5_multilingual_XLSum", device="cpu"):
+    def __init__(self, audio_file, model_size="base", summarizer_model="csebuetnlp/mT5_multilingual_XLSum"):
         check_ffmpeg()
 
-        self.device = device
+        # Automatically detect GPU
+        if torch.cuda.is_available():
+            self.device = "cuda"
+            self.device_id = 0
+        else:
+            self.device = "cpu"
+            self.device_id = -1
+
         self.model_size = model_size
         self.file_path = audio_file
+
+        self._log_gpu_memory_info()
 
         logging.info(f"Loading Whisper model '{self.model_size}' on {self.device}...")
         print(f"🔁 Loading Whisper model: {self.model_size} on {self.device}")
@@ -54,95 +65,92 @@ class HindiTranscriber:
 
         logging.info("Loading summarization model...")
         print("🔁 Loading summarization model...")
+
+        # GPU memory check before summarizer
+        if self.device == "cuda" and self.get_free_gpu_memory() < 3000:
+            logging.warning("Not enough GPU memory for summarizer, switching to CPU.")
+            self.device_id = -1
+
         try:
-            self.summarizer = pipeline("summarization", model=summarizer_model, tokenizer=summarizer_model)
+            self.summarizer = pipeline(
+                "summarization",
+                model=summarizer_model,
+                tokenizer=summarizer_model,
+                device=self.device_id
+            )
         except Exception as e:
-            logging.error(f"Failed to load summarization model: {e}")
-            raise MyException(str(e), sys)
+            if self.device_id == 0:
+                logging.warning("Retrying summarizer on CPU...")
+                try:
+                    self.summarizer = pipeline(
+                        "summarization",
+                        model=summarizer_model,
+                        tokenizer=summarizer_model,
+                        device=-1
+                    )
+                    logging.info("Summarizer loaded on CPU.")
+                except Exception as ex:
+                    logging.error(f"Summarization model failed on both GPU and CPU: {ex}")
+                    raise MyException(str(ex), sys)
+            else:
+                logging.error(f"Failed to load summarization model: {e}")
+                raise MyException(str(e), sys)
+
         logging.info("Summarization model loaded successfully.")
         print("✅ Summarization model loaded.")
 
-    def transcribe_audio(self):
+    def get_free_gpu_memory(self):
         try:
-            if not os.path.exists(self.file_path):
-                logging.error(f"Audio file not found: {self.file_path}")
-                raise FileNotFoundError(f"Audio file not found: {self.file_path}")
-            
-            logging.info(f"Transcribing audio file: {self.file_path}")
-            print("🔁 Transcribing audio... (this may take time on CPU)")
-
-            start_time = time.time()
-            result = self.model.transcribe(self.file_path, language="hi")
-            duration = time.time() - start_time
-
-            logging.info(f"Transcription completed in {duration:.2f} seconds.")
-            print("✅ Transcription completed.")
-            return result["text"]
-
-        except KeyError as e:
-            logging.error(f"Language 'hi' not supported: {e}")
-            raise ValueError("The specified language 'hi' is not supported by the Whisper model.")
+            result = subprocess.run(
+                ["nvidia-smi", "--query-gpu=memory.free", "--format=csv,nounits,noheader"],
+                stdout=subprocess.PIPE, text=True
+            )
+            mem = int(result.stdout.strip().split('\n')[0])
+            return mem
         except Exception as e:
-            logging.error(f"Error during transcription: {e}")
-            raise MyException(str(e), sys)
+            logging.warning("Unable to get GPU memory info. Assuming low memory.")
+            return -1
 
-    def normalize_hindi_text(self, text):
-        try:
-            logging.info("Normalizing Hindi text...")
-            print("🔁 Normalizing Hindi text...")
-            normalizer = DevanagariNormalizer()
-            normalized_text = normalizer.normalize(text)
-            normalized_text = re.sub(r'\s+', ' ', normalized_text)
-            normalized_text = re.sub(r'([।!?])', r' \1 ', normalized_text)
-            logging.info("Text normalization complete.")
-            print("✅ Normalization complete.")
-            return normalized_text.strip()
-        except Exception as e:
-            logging.error(f"Normalization error: {e}")
-            raise MyException(str(e), sys)
-
-    def generate_summary(self, text, max_length=100, min_length=30):
-        try:
-            logging.info("Generating summary...")
-            print("🔁 Generating summary...")
-
-            word_count = len(text.split())
-            logging.info(f"Text length: {word_count} words")
-
-            if word_count < min_length:
-                logging.warning("Text too short for summarization. Returning original text as summary.")
-                return "Summary not generated: Transcription too short."
-
-            summary = self.summarizer(text, max_length=max_length, min_length=min_length, do_sample=False)
-            logging.info("Summary generation complete.")
-            print("✅ Summary complete.")
-            return summary[0]["summary_text"]
-        except Exception as e:
-            logging.error(f"Summary error: {e}")
-            raise MyException(str(e), sys)
-
+    def _log_gpu_memory_info(self):
+        if self.device == "cuda":
+            try:
+                total = torch.cuda.get_device_properties(0).total_memory // (1024 ** 2)
+                allocated = torch.cuda.memory_allocated(0) // (1024 ** 2)
+                logging.info(f"GPU memory: Total = {total} MB, Allocated = {allocated} MB")
+            except Exception as e:
+                logging.warning(f"Failed to log GPU memory info: {e}")
     def process_audio(self, output_dir):
         try:
-            logging.info(f"Processing audio: {self.file_path}")
             ensure_directory_exists(output_dir)
 
-            raw_text = self.transcribe_audio()
-            clean_text = self.normalize_hindi_text(raw_text)
-            summary = self.generate_summary(clean_text)
+            logging.info(f"Transcribing audio file: {self.file_path}")
+            print("🔁 Transcribing audio...")
 
-            base_name = os.path.basename(self.file_path).replace('.mp3', '.txt')
-            output_path = os.path.join(output_dir, base_name)
+            # Run the transcription
+            result = self.model.transcribe(self.file_path, language="hi")
 
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(f"Transcription:\n{clean_text}\n\nSummary:\n{summary}")
+            # Normalize text
+            text = result["text"]
+            normalizer = DevanagariNormalizer()
+            normalized_text = normalizer.normalize(text)
 
-            logging.info(f"Output saved to: {output_path}")
-            print(f"✅ Processing complete. Results saved to: {output_path}")
-            return clean_text, summary
+            logging.info("Transcription complete.")
+            print("✅ Transcription complete.")
+
+            logging.info("Generating summary...")
+            print("🔁 Generating summary...")
+            summary_result = self.summarizer(normalized_text, max_length=100, min_length=30, do_sample=False)
+            summary = summary_result[0]["summary_text"]
+
+            logging.info("Summary generation complete.")
+            print("✅ Summary generation complete.")
+
+            return normalized_text, summary
 
         except Exception as e:
-            logging.error(f"Error in processing: {e}")
+            logging.error(f"Error in process_audio: {e}")
             raise MyException(str(e), sys)
+
 
 
 # if __name__ == "__main__":

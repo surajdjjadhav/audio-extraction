@@ -7,6 +7,7 @@ from scripts.exception import MyException
 from scripts.download_audio import download_audio
 from scripts.transcribe import HindiTranscriber
 from scripts.save_json import save_transcript_and_summary
+import torch 
 
 app = Flask(__name__)
 
@@ -24,11 +25,10 @@ def process_video(video_title, url):
             raise FileNotFoundError("Failed to download audio.")
 
         logging.info("Initializing HindiTranscriber...")
-        # Load Whisper on CPU to avoid memory issues
+        # Device is automatically selected in HindiTranscriber (GPU if available)
         transcriber = HindiTranscriber(
             model_size="medium",
-            audio_file=audio_path,
-            device="cpu"
+            audio_file=audio_path
         )
 
         logging.info("Processing transcription...")
